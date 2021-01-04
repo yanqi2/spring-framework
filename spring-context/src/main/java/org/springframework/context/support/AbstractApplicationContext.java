@@ -500,13 +500,13 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			// *_* 2-3: load bean definitions with this bean factory.
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
-			// Prepare the bean factory for use in this context.
-			// method 3
+			// method 3: Prepare the bean factory for use in this context.
+			// 3-1: set bean factory attr.
 			prepareBeanFactory(beanFactory);
 
 			try {
-				// Allows post-processing of the bean factory in context subclasses.
-				// method 4
+				// method 4: Allows post-processing of the bean factory in context subclasses.
+				// 4-1 @SEP
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
@@ -623,6 +623,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @see #getBeanFactory()
 	 */
 	protected ConfigurableListableBeanFactory obtainFreshBeanFactory() {
+		// refresh bean factory, the bean factory is a bean collection and it provide the base ability for a bean eg {getBean}.
 		refreshBeanFactory();
 		return getBeanFactory();
 	}

@@ -81,6 +81,7 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 	protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) throws BeansException, IOException {
 		// Create a new XmlBeanDefinitionReader for the given BeanFactory.
 		// different resource location have different {@link BeanDefinitionReader}
+		// @DM Adapter
 		XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
 
 		// Configure the bean definition reader with this context's resource loading environment.
@@ -92,7 +93,7 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 		// then proceed with actually loading the bean definitions.
 		// set validating.
 		initBeanDefinitionReader(beanDefinitionReader);
-		// load location resource to bean definition.
+		// *_* load location resource to bean definition.
 		loadBeanDefinitions(beanDefinitionReader);
 	}
 
@@ -121,11 +122,15 @@ public abstract class AbstractXmlApplicationContext extends AbstractRefreshableC
 	 * @see #getResourcePatternResolver
 	 */
 	protected void loadBeanDefinitions(XmlBeanDefinitionReader reader) throws BeansException, IOException {
+		// get and resolve the content of this xml file through reader object
+		// the reader is a adapter design mode
 		Resource[] configResources = getConfigResources();
 		if (configResources != null) {
+			// load resource object
 			reader.loadBeanDefinitions(configResources);
 		}
 		String[] configLocations = getConfigLocations();
+			// *_* load location object
 		if (configLocations != null) {
 			reader.loadBeanDefinitions(configLocations);
 		}
